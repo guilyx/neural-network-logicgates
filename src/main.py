@@ -62,4 +62,4 @@ if __name__ == "__main__":
     in2 = args['in2']
 
     ##### Start Training #####
-    or_gate(100, in1, in2)
+    or_gate(10000, in1, in2)
