@@ -34,7 +34,7 @@ def or_gate(epochs, in1, in2):
 
     predicted_output = or_predictor.predict(np.array([in1, in2]))
     
-    print(np.array([in1, in2]), ' ---> ', predicted_output)
+    print(np.array([in1, in2]), ' ---> ', np.round(predicted_output))
     
 
 def and_gate(epochs, in1, in2):
