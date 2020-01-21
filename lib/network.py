@@ -1,4 +1,5 @@
 import numpy as np 
+import time
 
 class NeuralNetwork():
     def __init__(self, synapses = None):
@@ -9,6 +10,8 @@ class NeuralNetwork():
             self.synapses = synapses
 
         self.epoch = 0
+
+        self.training_time = 0
 
 
     def sigmoid(self, z):
@@ -42,10 +45,12 @@ class NeuralNetwork():
 
     
     def train(self, t_inputs, t_outputs, epochs):
+        start_time = time.time()
+
         for iterations in range(epochs):
 
             self.epoch = iterations
-            
+
             input_layer = t_inputs
             outputs = self.tanh(np.dot(input_layer, self.synapses))
             np.round(outputs)
@@ -53,3 +58,5 @@ class NeuralNetwork():
 
             adjustments = error * self.tanh_prime(outputs)
             self.synapses += np.dot(input_layer.T, adjustments)
+        
+        self.training_time = time.time() - start_time
