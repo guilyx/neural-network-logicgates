@@ -3,7 +3,7 @@ from lib.network import NeuralNetwork
 
 class LogicGate():
     def __init__(self, gate, in1, in2):
-        self.gate = self.gate
+        self.gate = gate
         self.in1 = in1
         self.in2 = in2
 
