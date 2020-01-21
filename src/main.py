@@ -13,6 +13,7 @@ from os import path
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 
 from lib.network import NeuralNetwork
+from lib.gate_predictions import LogicGate
 
 if __name__ == "__main__":
     ##### Getting args ######
@@ -25,4 +26,5 @@ if __name__ == "__main__":
     epoch = 10000
 
     ##### Start Training #####
-    predict_gate(epoch, in1, in2, gate)
+    LogicGate(gate, in1, in2)
+    LogicGate.predict_gate(epoch)

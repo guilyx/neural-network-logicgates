@@ -54,7 +54,7 @@ class LogicGate():
             t_outputs = np.array([[0, 0, 0, 1]]).T
         
         elif self.gate == 'nand' or self.gate == 'NAND':
-            print_gate()
+            self.print_gate()
 
             t_inputs = np.array([[0, 0],
                             [0, 1],
@@ -69,7 +69,7 @@ class LogicGate():
         return t_inputs, t_outputs
 
     def predict_gate(self, epochs):
-        # Or gate prediction
+        # Gate Prediction
         t_inputs, t_outputs = self.choose_gate()
 
         madame_irma = NeuralNetwork()
