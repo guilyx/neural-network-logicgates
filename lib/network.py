@@ -55,11 +55,11 @@ class NeuralNetwork():
             self.epoch = iterations
 
             input_layer = t_inputs
-            outputs = self.tanh(np.dot(input_layer, self.synapses))
+            outputs = self.sigmoid(np.dot(input_layer, self.synapses))
             np.round(outputs)
             error = t_outputs - outputs
 
-            adjustments = error * self.tanh_prime(outputs)
+            adjustments = error * self.sigmoid_prime(outputs)
             self.synapses += np.dot(input_layer.T, adjustments) * self.learning_rate
         
         self.training_time = time.time() - start_time
