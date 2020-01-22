@@ -2,7 +2,7 @@ import numpy as np
 import time
 
 class NeuralNetwork():
-    def __init__(self, synapses = None):
+    def __init__(self, learning_rate = None, synapses = None):
 
         if (synapses == None):
             self.synapses = 2 * np.random.random((2, 1)) - 1
@@ -10,8 +10,12 @@ class NeuralNetwork():
             self.synapses = synapses
 
         self.epoch = 0
-
         self.training_time = 0
+
+        if learning_rate == None:
+            self.learning_rate = 1
+        else:
+            self.learning_rate = learning_rate
 
 
     def sigmoid(self, z):
@@ -40,7 +44,6 @@ class NeuralNetwork():
     def predict(self, inputs):
         inputs = inputs.astype(float)
         outputs = self.tanh(np.dot(inputs, self.synapses))
-        np.round(outputs)
         return outputs
 
     
@@ -57,6 +60,6 @@ class NeuralNetwork():
             error = t_outputs - outputs
 
             adjustments = error * self.tanh_prime(outputs)
-            self.synapses += np.dot(input_layer.T, adjustments)
+            self.synapses += np.dot(input_layer.T, adjustments) * self.learning_rate
         
         self.training_time = time.time() - start_time

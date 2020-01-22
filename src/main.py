@@ -24,7 +24,10 @@ if __name__ == "__main__":
     in2 = args['in2']
 
     epoch = 10000
+    learning_rate = 0.05
 
     ##### Start Training #####
-    LogicGate(gate, in1, in2)
-    LogicGate.predict_gate(epoch)
+    gate_ = LogicGate(gate, in1, in2)
+    pr_output = gate_.predict_gate(epoch, learning_rate)
+
+    print(pr_output)
