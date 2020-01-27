@@ -8,14 +8,13 @@ sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 from lib.network import NeuralNetwork
 from lib.gate_predictions import LogicGate
 
-
 def test_outputs_or():
     gate = 'or'
-    learning_rate = 0.05
+    learning_rate = 0.1
     
     # error = 10/float(epochs)
     error = .2
-    precision = 1 - error
+    precision = 95
 
     expected_inputs = np.array([[0, 0],
                          [0, 1],
@@ -28,8 +27,8 @@ def test_outputs_or():
         in1 = expected_inputs[i][0]
         in2 = expected_inputs[i][1]
 
-        gate_ = LogicGate(gate, in1, in2)
-        pr_out = gate_.evolved_predict(learning_rate, precision)
+        gate_ = LogicGate(gate, 'tanh', in1, in2)
+        pr_out = gate_.evolved_predict_output(learning_rate, precision)
 
         
 
@@ -38,11 +37,11 @@ def test_outputs_or():
 
 def test_outputs_nor():
     gate = 'nor'
-    learning_rate = 0.05
+    learning_rate = 0.1
     
     # error = 10/float(epochs)
     error = .2
-    precision = 1 - error
+    precision = 95
 
     expected_inputs = np.array([[0, 0],
                          [0, 1],
@@ -55,8 +54,8 @@ def test_outputs_nor():
         in1 = expected_inputs[i][0]
         in2 = expected_inputs[i][1]
 
-        gate_ = LogicGate(gate, in1, in2)
-        pr_out = gate_.evolved_predict(learning_rate, precision)
+        gate_ = LogicGate(gate, 'tanh', in1, in2)
+        pr_out = gate_.evolved_predict_output(learning_rate, precision)
 
         
 
@@ -65,7 +64,7 @@ def test_outputs_nor():
 
 def test_outputs_xor():
     gate = 'xor'
-    learning_rate = 0.05
+    learning_rate = 0.1
     
     # error = 10/float(epochs)
     error = .2
@@ -82,8 +81,8 @@ def test_outputs_xor():
         in1 = expected_inputs[i][0]
         in2 = expected_inputs[i][1]
 
-        gate_ = LogicGate(gate, in1, in2)
-        pr_out = gate_.evolved_predict(learning_rate, precision)
+        gate_ = LogicGate(gate, 'tanh', in1, in2)
+        pr_out = gate_.evolved_predict_output(learning_rate, precision)
 
         
 
@@ -92,7 +91,7 @@ def test_outputs_xor():
 
 def test_outputs_and():
     gate = 'and'
-    learning_rate = 0.05
+    learning_rate = 0.1
     
     # error = 10/float(epochs)
     error = .2
@@ -109,8 +108,8 @@ def test_outputs_and():
         in1 = expected_inputs[i][0]
         in2 = expected_inputs[i][1]
 
-        gate_ = LogicGate(gate, in1, in2)
-        pr_out = gate_.evolved_predict(learning_rate, precision)
+        gate_ = LogicGate(gate, 'tanh', in1, in2)
+        pr_out = gate_.evolved_predict_output(learning_rate, precision)
 
         
 
@@ -119,7 +118,7 @@ def test_outputs_and():
 
 def test_outputs_nand():
     gate = 'nand'
-    learning_rate = 0.05
+    learning_rate = 0.1
     
     # error = 10/float(epochs)
     error = .2
@@ -136,8 +135,8 @@ def test_outputs_nand():
         in1 = expected_inputs[i][0]
         in2 = expected_inputs[i][1]
 
-        gate_ = LogicGate(gate, in1, in2)
-        pr_out = gate_.evolved_predict(learning_rate, precision)
+        gate_ = LogicGate(gate, 'tanh', in1, in2)
+        pr_out = gate_.evolved_predict_output(learning_rate, precision)
 
         
 
