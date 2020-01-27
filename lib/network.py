@@ -2,7 +2,7 @@ import numpy as np
 import time
 
 class Perceptron():
-    def __init__(self, activation = 'tanh', learning_rate = None, synapses = None):
+    def __init__(self, activation = 'tanh', bias = None, learning_rate = None, synapses = None):
 
         if (synapses == None):
             self.synapses = 2 * np.random.random((2, 1)) - 1
@@ -51,23 +51,29 @@ class Perceptron():
     
     def predict(self, inputs):
         inputs = inputs.astype(float)
-        outputs = self.activation(np.dot(inputs, self.synapses))
+        outputs = self.activation(np.dot(inputs, self.synapses) + self.bias)
         return outputs
 
     
     def train(self, t_inputs, t_outputs, epochs):
         start_time = time.time()
+        if self.activation == self.tanh:
+            self.bias = 0.2
+        elif self.activation == self.sigmoid:
+            self.bias = 1.25
 
         for iterations in range(epochs):
 
             self.epoch = iterations
 
             input_layer = t_inputs
-            outputs = self.activation(np.dot(input_layer, self.synapses))
+            outputs = self.activation(np.dot(input_layer, self.synapses) + self.bias)
 
             error = t_outputs - outputs
 
             adjustments = error * self.activation_prime(outputs) * self.learning_rate
+
+            self.bias += np.sum(adjustments)
             self.synapses += np.dot(input_layer.T, adjustments) 
 
         
@@ -77,7 +83,7 @@ class Perceptron():
 # ------------------------------------------------------------------------------ #
 
 class NeuralNetwork():
-    def __init__(self, activation = 'tanh', learning_rate = None):
+    def __init__(self, activation = 'tanh', bias = None, learning_rate = None):
 
         self.synapse_0 = 2 * np.random.random((2, 2)) - 1
         self.synapse_1 = 2 * np.random.random((2, 1)) - 1
@@ -143,7 +149,10 @@ class NeuralNetwork():
     def train(self, t_inputs, t_outputs, epochs, debug = False):
         start_time = time.time()
 
-        self.bias_1 = self.bias_2 = self.bias_3 = 0
+        if self.activation == self.sigmoid:
+            self.bias_1 = self.bias_2 = self.bias_3 = 0.7
+        elif self.activation == self.tanh:
+            self.bias_1 = self.bias_2 = self.bias_3 = 1
 
         for iterations in range(epochs):
 
@@ -181,9 +190,9 @@ class NeuralNetwork():
         start_time = time.time()
         
         if self.activation == self.sigmoid:
-            self.bias_ev1 = self.bias_ev2 = self.bias_ev3 = 0.5
+            self.bias_ev1 = self.bias_ev2 = self.bias_ev3 = 0.7
         elif self.activation == self.tanh:
-            self.bias_ev1 = self.bias_ev2 = self.bias_ev3 = 0
+            self.bias_ev1 = self.bias_ev2 = self.bias_ev3 = 1
 
         delta = 0.0
         stagnation_iter = 0
