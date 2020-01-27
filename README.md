@@ -15,10 +15,10 @@ To setup the project on your local machine:
 
 To run the project:
 1. Cd into the root of the project `cd path/neural-network-logicgates`
-2. Run the main script with necessary args : `python src/main.py gate=or in1=0 in2=0`
+2. Run the main script with necessary args : `python src/main.py gate=or mode 'network'`
 
 Accepted values for the gate argument are : or, OR, and, AND, nor, NOR, nand, NAND, xor, XOR
-Pertinent values for in1 and in2 are : 0, 1
+Accepted modes are : network, perceptron
 
 ## Contribute
 
