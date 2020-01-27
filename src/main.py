@@ -60,7 +60,6 @@ def gate_outputs(activation):
         else:
             gate_.train(epoch, learning_rate, mode)
             pr_outputs = gate_.training_results()
-    
 
 
 if __name__ == "__main__":
