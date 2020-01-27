@@ -74,6 +74,8 @@ class Perceptron():
         self.training_time = time.time() - start_time
 
 
+# ------------------------------------------------------------------------------ #
+
 class NeuralNetwork():
     def __init__(self, activation = 'tanh', learning_rate = None):
 
@@ -178,7 +180,10 @@ class NeuralNetwork():
     def evolved_train(self, t_inputs, t_outputs, precision_percentage):
         start_time = time.time()
         
-        self.bias_ev1 = self.bias_ev2 = self.bias_ev3 = 0.5
+        if self.activation == self.sigmoid:
+            self.bias_ev1 = self.bias_ev2 = self.bias_ev3 = 0.5
+        elif self.activation == self.tanh:
+            self.bias_ev1 = self.bias_ev2 = self.bias_ev3 = 0
 
         delta = 0.0
         stagnation_iter = 0
