@@ -4,10 +4,8 @@ import time
 class Perceptron():
     def __init__(self, activation = 'tanh', learning_rate = None, synapses = None):
 
-        np.random.seed(1)
-
         if (synapses == None):
-            self.synapses = 2 * np.random.random((2, 1)) - 1
+            self.synapses = np.random.random((2, 1)) - 0.5
         else: 
             self.synapses = synapses
 
@@ -60,7 +58,7 @@ class Perceptron():
     def train(self, t_inputs, t_outputs, epochs):
         start_time = time.time()
         if self.activation == self.tanh:
-            self.bias = 5
+            self.bias = 0.5
         elif self.activation == self.sigmoid:
             self.bias = 1
 
@@ -87,11 +85,9 @@ class Perceptron():
 class NeuralNetwork():
     def __init__(self, activation = 'tanh', learning_rate = None):
 
-        np.random.seed(1)
-
-        self.synapse_0 = 2 * np.random.random((2, 2)) - 1
-        self.synapse_1 = 2 * np.random.random((2, 1)) - 1
-        self.synapse_2 = 2 * np.random.random((1, 2)) - 1
+        self.synapse_0 = np.random.random((2, 2)) - 0.5
+        self.synapse_1 = np.random.random((2, 1)) - 0.5
+        self.synapse_2 = np.random.random((1, 2)) - 0.5
 
         self.epoch = 0
         self.training_time = 0
