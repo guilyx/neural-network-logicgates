@@ -3,7 +3,7 @@ from lib.network import Perceptron
 from lib.network import NeuralNetwork
 
 class LogicGate():
-    def __init__(self, gate, in1 = None, in2 = None):
+    def __init__(self, gate, activation = 'tanh', in1 = None, in2 = None):
         self.gate = gate
 
         if in1 == None:
@@ -15,6 +15,8 @@ class LogicGate():
             pass
         else:
             self.in2 = in2
+
+        self.activation = activation
 
 
     def print_gate(self):
@@ -73,7 +75,7 @@ class LogicGate():
             t_outputs = np.array([[1, 1, 1, 0]]).T
 
         else:
-            print("Error : self.gate name not found !")
+            print("Error : Gate name not found !")
 
         return t_inputs, t_outputs
 
@@ -82,9 +84,9 @@ class LogicGate():
         t_inputs, t_outputs = self.choose_gate()
 
         if (mode == 'perceptron' or mode == 'Perceptron' or mode == 'PERCEPTRON'):
-            self.madame_irma = Perceptron(learning_rate)
+            self.madame_irma = Perceptron(self.activation, learning_rate)
         elif (mode == 'network' or mode == 'Network' or mode == 'NETWORK'):
-            self.madame_irma = NeuralNetwork(learning_rate)
+            self.madame_irma = NeuralNetwork(self.activation, learning_rate)
         print("Training...")
         self.madame_irma.train(t_inputs, t_outputs, n_epochs)
 
@@ -100,7 +102,7 @@ class LogicGate():
         # Gate Prediction
         t_inputs, t_outputs = self.choose_gate()
         
-        self.madame_irma = NeuralNetwork(learning_rate)
+        self.madame_irma = NeuralNetwork(self.activation, learning_rate)
 
         print("Training...")
         self.madame_irma.evolved_train(t_inputs, t_outputs, precision_percentage)
@@ -108,36 +110,39 @@ class LogicGate():
         training_time = "{0:.2f}".format(self.madame_irma.training_time) # rounding to two digits only
         print("Training finished in " + training_time + " seconds, predicting your output(s) : ")
         
-        predicted_output = self.madame_irma.predict(np.array([self.in1, self.in2]))
+        predicted_output = self.madame_irma.evolved_predict(np.array([self.in1, self.in2]))
         
         print(np.array([self.in1, self.in2]), ' ---> ', np.round(predicted_output))
         return(predicted_output)
+
 
     def train(self, n_epochs, learning_rate, mode):
         # Gate Prediction
         t_inputs, t_outputs = self.choose_gate()
 
         if (mode == 'perceptron' or mode == 'Perceptron' or mode == 'PERCEPTRON'):
-            self.madame_irma = Perceptron(learning_rate)
+            self.madame_irma = Perceptron(self.activation, learning_rate)
         elif (mode == 'network' or mode == 'Network' or mode == 'NETWORK'):
-            self.madame_irma = NeuralNetwork(learning_rate)
+            self.madame_irma = NeuralNetwork(self.activation, learning_rate)
         print("Training...")
         self.madame_irma.train(t_inputs, t_outputs, n_epochs)
 
         training_time = "{0:.2f}".format(self.madame_irma.training_time) # rounding to two digits only
         print("Training finished in " + training_time + " seconds, predicting your output(s) : ")
 
+
     def evolved_train(self, precision_percentage, learning_rate):
         # Gate Prediction
         t_inputs, t_outputs = self.choose_gate()
         
-        self.madame_irma = NeuralNetwork(learning_rate)
+        self.madame_irma = NeuralNetwork(self.activation, learning_rate)
 
         print("Training...")
         self.madame_irma.evolved_train(t_inputs, t_outputs, precision_percentage)
 
         training_time = "{0:.2f}".format(self.madame_irma.training_time) # rounding to two digits only
         print("Training finished in " + training_time + " seconds, predicting your output(s) : ")
+
 
     def training_results(self):
         t_inputs, t_outputs = self.choose_gate()
