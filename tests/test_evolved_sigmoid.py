@@ -67,7 +67,7 @@ def test_outputs_xor():
     learning_rate = 0.1
     
     # error = 10/float(epochs)
-    error = .2
+    error = .34
     accuracy = 95
 
     expected_inputs = np.array([[0, 0],
