@@ -29,6 +29,7 @@ def test_outputs_or():
 
     for elem in expected_inputs:
         pr_out = gate_.madame_irma.predict(elem)
+        print(elem, ' ---> ', pr_out[0])
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
         i += 1
 
@@ -54,6 +55,7 @@ def test_outputs_nor():
 
     for elem in expected_inputs:
         pr_out = gate_.madame_irma.predict(elem)
+        print(elem, ' ---> ', pr_out[0])
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
         i += 1
 
@@ -79,6 +81,7 @@ def test_outputs_xor():
 
     for elem in expected_inputs:
         pr_out = gate_.madame_irma.predict(elem)
+        print(elem, ' ---> ', pr_out[0])
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
         i += 1
 
@@ -104,6 +107,7 @@ def test_outputs_and():
 
     for elem in expected_inputs:
         pr_out = gate_.madame_irma.predict(elem)
+        print(elem, ' ---> ', pr_out[0])
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
         i += 1
 
@@ -129,5 +133,6 @@ def test_outputs_nand():
 
     for elem in expected_inputs:
         pr_out = gate_.madame_irma.predict(elem)
+        print(elem, ' ---> ', pr_out[0])
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
         i += 1
