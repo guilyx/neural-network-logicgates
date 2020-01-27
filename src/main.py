@@ -16,7 +16,7 @@ from lib.network import Perceptron
 from lib.network import NeuralNetwork
 from lib.gate_predictions import LogicGate
 
-if __name__ == "__main__":
+def main():
     ##### Getting args ######
     args = dict([arg.split('=') for arg in sys.argv[1:]])
 
@@ -37,3 +37,30 @@ if __name__ == "__main__":
     pr_output = gate_.predict_gate(epoch, learning_rate, mode)
 
     print(pr_output)
+
+def alternative():
+    args = dict([arg.split('=') for arg in sys.argv[1:]])
+    gate = args['gate']
+    mode = args['mode']
+
+    learning_rate = 0.1
+    evolved = True
+
+    gate_ = LogicGate(gate)
+
+    if mode == 'perceptron':
+        epoch = 30000
+        gate_.train(epoch, learning_rate, mode)
+    elif mode == 'network':
+        epoch = 100000
+        if evolved:
+            accuracy = 95
+            gate_.evolved_train(accuracy, learning_rate)
+        else:
+            gate_.train(epoch, learning_rate, mode)
+
+    pr_outputs = gate_.training_results()
+
+
+if __name__ == "__main__":
+    alternative()

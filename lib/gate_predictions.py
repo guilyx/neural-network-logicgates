@@ -3,10 +3,18 @@ from lib.network import Perceptron
 from lib.network import NeuralNetwork
 
 class LogicGate():
-    def __init__(self, gate, in1, in2):
+    def __init__(self, gate, in1 = None, in2 = None):
         self.gate = gate
-        self.in1 = in1
-        self.in2 = in2
+
+        if in1 == None:
+            pass
+        else:
+            self.in1 = in1
+
+        if in2 == None:
+            pass
+        else:
+            self.in2 = in2
 
 
     def print_gate(self):
@@ -69,7 +77,7 @@ class LogicGate():
 
         return t_inputs, t_outputs
 
-    def predict_gate(self, n_epochs, learning_rate, mode):
+    def predict_output(self, n_epochs, learning_rate, mode):
         # Gate Prediction
         t_inputs, t_outputs = self.choose_gate()
 
@@ -88,7 +96,7 @@ class LogicGate():
         print(np.array([self.in1, self.in2]), ' ---> ', np.round(predicted_output))
         return(predicted_output)
     
-    def evolved_predict(self, precision_percentage, learning_rate):
+    def evolved_predict_output(self, precision_percentage, learning_rate):
         # Gate Prediction
         t_inputs, t_outputs = self.choose_gate()
         
@@ -105,3 +113,38 @@ class LogicGate():
         print(np.array([self.in1, self.in2]), ' ---> ', np.round(predicted_output))
         return(predicted_output)
 
+    def train(self, n_epochs, learning_rate, mode):
+        # Gate Prediction
+        t_inputs, t_outputs = self.choose_gate()
+
+        if (mode == 'perceptron' or mode == 'Perceptron' or mode == 'PERCEPTRON'):
+            self.madame_irma = Perceptron(learning_rate)
+        elif (mode == 'network' or mode == 'Network' or mode == 'NETWORK'):
+            self.madame_irma = NeuralNetwork(learning_rate)
+        print("Training...")
+        self.madame_irma.train(t_inputs, t_outputs, n_epochs)
+
+        training_time = "{0:.2f}".format(self.madame_irma.training_time) # rounding to two digits only
+        print("Training finished in " + training_time + " seconds, predicting your output(s) : ")
+
+    def evolved_train(self, precision_percentage, learning_rate):
+        # Gate Prediction
+        t_inputs, t_outputs = self.choose_gate()
+        
+        self.madame_irma = NeuralNetwork(learning_rate)
+
+        print("Training...")
+        self.madame_irma.evolved_train(t_inputs, t_outputs, precision_percentage)
+
+        training_time = "{0:.2f}".format(self.madame_irma.training_time) # rounding to two digits only
+        print("Training finished in " + training_time + " seconds, predicting your output(s) : ")
+
+    def training_results(self):
+        t_inputs, t_outputs = self.choose_gate()
+
+        for elem in t_inputs:
+            predicted_output = self.madame_irma.predict(elem)
+            print(elem, ' ---> ', predicted_output)
+
+        return(predicted_output)
+    
