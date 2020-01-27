@@ -5,7 +5,7 @@ class Perceptron():
     def __init__(self, activation = 'tanh', learning_rate = None, synapses = None):
 
         if (synapses == None):
-            self.synapses = np.random.random((2, 1)) - 0.5
+            self.synapses = 2 * np.random.random((2, 1)) - 1
         else: 
             self.synapses = synapses
 
@@ -85,9 +85,9 @@ class Perceptron():
 class NeuralNetwork():
     def __init__(self, activation = 'tanh', learning_rate = None):
 
-        self.synapse_0 = np.random.random((2, 2)) - 0.5
-        self.synapse_1 = np.random.random((2, 1)) - 0.5
-        self.synapse_2 = np.random.random((1, 2)) - 0.5
+        self.synapse_0 = 2 * np.random.random((2, 2)) - 1
+        self.synapse_1 = 2 * np.random.random((2, 1)) - 1
+        self.synapse_2 = 2 * np.random.random((1, 2)) - 1
 
         self.epoch = 0
         self.training_time = 0
