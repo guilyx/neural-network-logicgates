@@ -32,7 +32,7 @@ class LogicGate():
                             [1, 0],
                             [1, 1]])
 
-            t_outputs = np.array([[0, 1, 1, 1]]).T
+            self.t_outputs = np.array([[0, 1, 1, 1]]).T
         
         elif self.gate == 'xor' or self.gate == 'XOR':
             self.print_gate()
@@ -42,7 +42,7 @@ class LogicGate():
                             [0, 1],
                             [1, 1]])
 
-            t_outputs = np.array([[0, 1, 1, 0]]).T
+            self.t_outputs = np.array([[0, 1, 1, 0]]).T
         
         elif self.gate == 'nor' or self.gate == 'NOR':
             self.print_gate()
@@ -52,7 +52,7 @@ class LogicGate():
                             [1, 0],
                             [1, 1]])
 
-            t_outputs = np.array([[1, 0, 0, 0]]).T
+            self.t_outputs = np.array([[1, 0, 0, 0]]).T
 
         elif self.gate == 'and' or self.gate == 'AND':
             self.print_gate()
@@ -62,7 +62,7 @@ class LogicGate():
                             [1, 0],
                             [1, 1]])
 
-            t_outputs = np.array([[0, 0, 0, 1]]).T
+            self.t_outputs = np.array([[0, 0, 0, 1]]).T
         
         elif self.gate == 'nand' or self.gate == 'NAND':
             self.print_gate()
@@ -72,12 +72,12 @@ class LogicGate():
                             [1, 0],
                             [1, 1]])
 
-            t_outputs = np.array([[1, 1, 1, 0]]).T
+            self.t_outputs = np.array([[1, 1, 1, 0]]).T
 
         else:
             print("Error : Gate name not found !")
 
-        return t_inputs, t_outputs
+        return t_inputs, self.t_outputs
 
     def predict_output(self, n_epochs, learning_rate, mode):
         # Gate Prediction
