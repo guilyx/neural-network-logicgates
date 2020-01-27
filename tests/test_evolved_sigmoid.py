@@ -14,7 +14,7 @@ def test_outputs_or():
     
     # error = 10/float(epochs)
     error = .2
-    precision = 95
+    accuracy = 95
 
     expected_inputs = np.array([[0, 0],
                          [0, 1],
@@ -22,17 +22,16 @@ def test_outputs_or():
                          [1, 1]])
 
     expected_outputs = np.array([[0, 1, 1, 1]]).T
-    
-    for i in range(4):
-        in1 = expected_inputs[i][0]
-        in2 = expected_inputs[i][1]
 
-        gate_ = LogicGate(gate, 'sigmoid', in1, in2)
-        pr_out = gate_.evolved_predict_output(learning_rate, precision)
+    gate_ = LogicGate(gate, 'sigmoid')
+    gate_.evolved_train(accuracy, learning_rate)
 
-        
+    i = 0
 
+    for elem in expected_inputs:
+        pr_out = gate_.madame_irma.evolved_predict(elem)
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
+        i += 1
 
 
 def test_outputs_nor():
@@ -41,7 +40,7 @@ def test_outputs_nor():
     
     # error = 10/float(epochs)
     error = .2
-    precision = 95
+    accuracy = 95
 
     expected_inputs = np.array([[0, 0],
                          [0, 1],
@@ -50,16 +49,15 @@ def test_outputs_nor():
 
     expected_outputs = np.array([[1, 0, 0, 0]]).T
     
-    for i in range(4):
-        in1 = expected_inputs[i][0]
-        in2 = expected_inputs[i][1]
+    gate_ = LogicGate(gate, 'sigmoid')
+    gate_.evolved_train(accuracy, learning_rate)
 
-        gate_ = LogicGate(gate, 'sigmoid', in1, in2)
-        pr_out = gate_.evolved_predict_output(learning_rate, precision)
+    i = 0
 
-        
-
+    for elem in expected_inputs:
+        pr_out = gate_.madame_irma.evolved_predict(elem)
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
+        i += 1
 
 
 def test_outputs_xor():
@@ -68,7 +66,7 @@ def test_outputs_xor():
     
     # error = 10/float(epochs)
     error = .2
-    precision = 1 - error
+    accuracy = 95
 
     expected_inputs = np.array([[0, 0],
                          [0, 1],
@@ -77,16 +75,15 @@ def test_outputs_xor():
 
     expected_outputs = np.array([[0, 1, 1, 0]]).T
     
-    for i in range(4):
-        in1 = expected_inputs[i][0]
-        in2 = expected_inputs[i][1]
+    gate_ = LogicGate(gate, 'sigmoid')
+    gate_.evolved_train(accuracy, learning_rate)
 
-        gate_ = LogicGate(gate, 'sigmoid', in1, in2)
-        pr_out = gate_.evolved_predict_output(learning_rate, precision)
+    i = 0
 
-        
-
+    for elem in expected_inputs:
+        pr_out = gate_.madame_irma.evolved_predict(elem)
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
+        i += 1
 
 
 def test_outputs_and():
@@ -95,7 +92,7 @@ def test_outputs_and():
     
     # error = 10/float(epochs)
     error = .2
-    precision = 1 - error
+    accuracy = 95
 
     expected_inputs = np.array([[0, 0],
                          [0, 1],
@@ -104,16 +101,15 @@ def test_outputs_and():
 
     expected_outputs = np.array([[0, 0, 0, 1]]).T
     
-    for i in range(4):
-        in1 = expected_inputs[i][0]
-        in2 = expected_inputs[i][1]
+    gate_ = LogicGate(gate, 'sigmoid')
+    gate_.evolved_train(accuracy, learning_rate)
 
-        gate_ = LogicGate(gate, 'sigmoid', in1, in2)
-        pr_out = gate_.evolved_predict_output(learning_rate, precision)
+    i = 0
 
-        
-
+    for elem in expected_inputs:
+        pr_out = gate_.madame_irma.evolved_predict(elem)
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
+        i += 1
 
 
 def test_outputs_nand():
@@ -122,7 +118,7 @@ def test_outputs_nand():
     
     # error = 10/float(epochs)
     error = .2
-    precision = 1 - error
+    accuracy = 95
 
     expected_inputs = np.array([[0, 0],
                          [0, 1],
@@ -131,13 +127,12 @@ def test_outputs_nand():
 
     expected_outputs = np.array([[1, 1, 1, 0]]).T
     
-    for i in range(4):
-        in1 = expected_inputs[i][0]
-        in2 = expected_inputs[i][1]
+    gate_ = LogicGate(gate, 'sigmoid')
+    gate_.evolved_train(accuracy, learning_rate)
 
-        gate_ = LogicGate(gate, 'sigmoid', in1, in2)
-        pr_out = gate_.evolved_predict_output(learning_rate, precision)
+    i = 0
 
-        
-
+    for elem in expected_inputs:
+        pr_out = gate_.madame_irma.evolved_predict(elem)
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
+        i += 1

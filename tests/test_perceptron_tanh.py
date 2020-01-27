@@ -5,16 +5,15 @@ import sys
 from os import path
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 
-from lib.network import Perceptron
+from lib.network import NeuralNetwork
 from lib.gate_predictions import LogicGate
 
 def test_outputs_or():
     gate = 'or'
-    epochs = 100000
     learning_rate = 0.1
-    
-    # error = 10/float(epochs)
-    error = .1
+    error = .2
+    epochs = 100000
+    mode = 'perceptron'
 
     expected_inputs = np.array([[0, 0],
                          [0, 1],
@@ -23,22 +22,23 @@ def test_outputs_or():
 
     expected_outputs = np.array([[0, 1, 1, 1]]).T
     
-    for i in range(4):
-        in1 = expected_inputs[i][0]
-        in2 = expected_inputs[i][1]
+    gate_ = LogicGate(gate, 'tanh')
+    gate_.train(epochs, learning_rate, mode)
 
-        gate_ = LogicGate(gate, 'tanh', in1, in2)
-        pr_out = gate_.predict_output(epochs, learning_rate, 'perceptron')
+    i = 0
 
+    for elem in expected_inputs:
+        pr_out = gate_.madame_irma.evolved_predict(elem)
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
+        i += 1
+
 
 def test_outputs_nor():
     gate = 'nor'
-    epochs = 100000
     learning_rate = 0.1
-    
-    # error = 10/float(epochs)
-    error = .1
+    error = .2
+    epochs = 100000
+    mode = 'perceptron'
 
     expected_inputs = np.array([[0, 0],
                          [0, 1],
@@ -47,23 +47,23 @@ def test_outputs_nor():
 
     expected_outputs = np.array([[1, 0, 0, 0]]).T
     
-    for i in range(4):
-        in1 = expected_inputs[i][0]
-        in2 = expected_inputs[i][1]
+    gate_ = LogicGate(gate, 'tanh')
+    gate_.train(epochs, learning_rate, mode)
 
-        gate_ = LogicGate(gate, 'tanh', in1, in2)
-        pr_out = gate_.predict_output(epochs, learning_rate, 'perceptron')
+    i = 0
 
+    for elem in expected_inputs:
+        pr_out = gate_.madame_irma.evolved_predict(elem)
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
+        i += 1
 
 
 def test_outputs_xor():
     gate = 'xor'
-    epochs = 100000
     learning_rate = 0.1
-    
-    # error = 10/float(epochs)
-    error = .1
+    error = .2
+    epochs = 100000
+    mode = 'perceptron'
 
     expected_inputs = np.array([[0, 0],
                          [0, 1],
@@ -72,23 +72,23 @@ def test_outputs_xor():
 
     expected_outputs = np.array([[0, 1, 1, 0]]).T
     
-    for i in range(4):
-        in1 = expected_inputs[i][0]
-        in2 = expected_inputs[i][1]
+    gate_ = LogicGate(gate, 'tanh')
+    gate_.train(epochs, learning_rate, mode)
 
-        gate_ = LogicGate(gate, 'tanh', in1, in2)
-        pr_out = gate_.predict_output(epochs, learning_rate, 'perceptron')
+    i = 0
 
+    for elem in expected_inputs:
+        pr_out = gate_.madame_irma.evolved_predict(elem)
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
+        i += 1
 
 
 def test_outputs_and():
     gate = 'and'
-    epochs = 100000
     learning_rate = 0.1
-    
-    # error = 10/float(epochs)
-    error = .1
+    error = .2
+    epochs = 100000
+    mode = 'perceptron'
 
     expected_inputs = np.array([[0, 0],
                          [0, 1],
@@ -97,23 +97,23 @@ def test_outputs_and():
 
     expected_outputs = np.array([[0, 0, 0, 1]]).T
     
-    for i in range(4):
-        in1 = expected_inputs[i][0]
-        in2 = expected_inputs[i][1]
+    gate_ = LogicGate(gate, 'tanh')
+    gate_.train(epochs, learning_rate, mode)
 
-        gate_ = LogicGate(gate, 'tanh', in1, in2)
-        pr_out = gate_.predict_output(epochs, learning_rate, 'perceptron')
+    i = 0
 
+    for elem in expected_inputs:
+        pr_out = gate_.madame_irma.evolved_predict(elem)
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
+        i += 1
 
 
 def test_outputs_nand():
     gate = 'nand'
+    learning_rate = 0.1
+    error = .2
     epochs = 100000
-    learning_rate = .1
-    
-    # error = 10/float(epochs)
-    error = .1
+    mode = 'perceptron'
 
     expected_inputs = np.array([[0, 0],
                          [0, 1],
@@ -122,11 +122,12 @@ def test_outputs_nand():
 
     expected_outputs = np.array([[1, 1, 1, 0]]).T
     
-    for i in range(4):
-        in1 = expected_inputs[i][0]
-        in2 = expected_inputs[i][1]
+    gate_ = LogicGate(gate, 'tanh')
+    gate_.train(epochs, learning_rate, mode)
 
-        gate_ = LogicGate(gate, 'tanh', in1, in2)
-        pr_out = gate_.predict_output(epochs, learning_rate, 'perceptron')
+    i = 0
 
+    for elem in expected_inputs:
+        pr_out = gate_.madame_irma.evolved_predict(elem)
         assert(pr_out[0] > expected_outputs[i][0] - error and pr_out[0] < expected_outputs[i][0] + error)
+        i += 1
