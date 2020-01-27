@@ -12,6 +12,7 @@ import sys
 from os import path
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 
+from lib.network import Perceptron
 from lib.network import NeuralNetwork
 from lib.gate_predictions import LogicGate
 
@@ -22,12 +23,17 @@ if __name__ == "__main__":
     gate = args['gate']
     in1 = args['in1']
     in2 = args['in2']
+    mode = args['mode']
 
-    epoch = 10000
+    if mode == 'perceptron':
+        epoch = 10000
+    elif mode == 'network':
+        epoch = 1000000
+
     learning_rate = 1
 
     ##### Start Training #####
     gate_ = LogicGate(gate, in1, in2)
-    pr_output = gate_.predict_gate(epoch, learning_rate)
+    pr_output = gate_.predict_gate(epoch, learning_rate, mode)
 
     print(pr_output)
