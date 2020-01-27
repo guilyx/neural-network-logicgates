@@ -118,9 +118,9 @@ class NeuralNetwork():
 
         layer0 = inputs
 
-        layer1 = self.activation(np.dot(layer0, self.synapse_0))
-        layer2 = self.activation(np.dot(layer1, self.synapse_1))
-        layer3 = self.activation(np.dot(layer2, self.synapse_2))
+        layer1 = self.activation(np.dot(layer0, self.synapse_0) + self.bias_1)
+        layer2 = self.activation(np.dot(layer1, self.synapse_1) + self.bias_2)
+        layer3 = self.activation(np.dot(layer2, self.synapse_2) + self.bias_3)
 
         outputs = layer3
         return outputs
@@ -131,15 +131,17 @@ class NeuralNetwork():
 
         layer0 = inputs
 
-        layer1 = self.activation(np.dot(layer0, self.synapse_0) + self.bias_1)
-        layer2 = self.activation(np.dot(layer1, self.synapse_1) + self.bias_2)
-        layer3 = self.activation(np.dot(layer2, self.synapse_2) + self.bias_3)
+        layer1 = self.activation(np.dot(layer0, self.synapse_0) + self.bias_ev1)
+        layer2 = self.activation(np.dot(layer1, self.synapse_1) + self.bias_ev2)
+        layer3 = self.activation(np.dot(layer2, self.synapse_2) + self.bias_ev3)
 
         outputs = layer3
         return outputs
     
     def train(self, t_inputs, t_outputs, epochs, debug = False):
         start_time = time.time()
+
+        self.bias_1 = self.bias_2 = self.bias_3 = 0
 
         for iterations in range(epochs):
 
@@ -149,48 +151,9 @@ class NeuralNetwork():
             input_layer = t_inputs
             layer0 = input_layer
 
-            layer1 = self.activation(np.dot(layer0, self.synapse_0))
-            layer2 = self.activation(np.dot(layer1, self.synapse_1))
-            layer3 = self.activation(np.dot(layer2, self.synapse_2))
-
-            # Back Propagation
-            layer3_error = t_outputs - layer3
-            layer3_delta = layer3_error * self.activation_prime(layer3) * self.learning_rate
-            
-            layer2_error = layer3_delta.dot(self.synapse_2.T)
-            layer2_delta = layer2_error * self.activation_prime(layer2) * self.learning_rate
-
-            layer1_error = layer2_delta.dot(self.synapse_1.T)
-            layer1_delta = layer1_error * self.activation_prime(layer1) * self.learning_rate
-
-            self.synapse_2 += layer2.T.dot(layer3_delta)
-            self.synapse_1 += layer1.T.dot(layer2_delta)
-            self.synapse_0 += layer0.T.dot(layer1_delta)
-        
-        self.training_time = time.time() - start_time
-
-
-    def evolved_train(self, t_inputs, t_outputs, precision_percentage):
-        start_time = time.time()
-        
-        self.bias_1 = self.bias_2 = self.bias_3 = 0
-
-        delta = 0.0
-        stagnation_iter = 0
-
-        error = 1 - (precision_percentage/100.0)
-
-        while(1):
-
-            self.epoch += 1
-
-            # Forward Propagation
-            input_layer = t_inputs
-            layer0 = input_layer
             layer1 = self.activation(np.dot(layer0, self.synapse_0) + self.bias_1)
             layer2 = self.activation(np.dot(layer1, self.synapse_1) + self.bias_2)
             layer3 = self.activation(np.dot(layer2, self.synapse_2) + self.bias_3)
-            
 
             # Back Propagation
             layer3_error = t_outputs - layer3
@@ -204,6 +167,48 @@ class NeuralNetwork():
             layer1_error = layer2_delta.dot(self.synapse_1.T)
             layer1_delta = layer1_error * self.activation_prime(layer1) * self.learning_rate
             self.bias_1 += np.sum(layer1_delta)
+
+            self.synapse_2 += layer2.T.dot(layer3_delta)
+            self.synapse_1 += layer1.T.dot(layer2_delta)
+            self.synapse_0 += layer0.T.dot(layer1_delta)
+        
+        self.training_time = time.time() - start_time
+
+
+    def evolved_train(self, t_inputs, t_outputs, precision_percentage):
+        start_time = time.time()
+        
+        self.bias_ev1 = self.bias_ev2 = self.bias_ev3 = 0.5
+
+        delta = 0.0
+        stagnation_iter = 0
+
+        error = 1 - (precision_percentage/100.0)
+
+        while(1):
+
+            self.epoch += 1
+
+            # Forward Propagation
+            input_layer = t_inputs
+            layer0 = input_layer
+            layer1 = self.activation(np.dot(layer0, self.synapse_0) + self.bias_ev1)
+            layer2 = self.activation(np.dot(layer1, self.synapse_1) + self.bias_ev2)
+            layer3 = self.activation(np.dot(layer2, self.synapse_2) + self.bias_ev3)
+            
+
+            # Back Propagation
+            layer3_error = t_outputs - layer3
+            layer3_delta = layer3_error * self.activation_prime(layer3) * self.learning_rate
+            self.bias_ev3 += np.sum(layer3_delta)
+            
+            layer2_error = layer3_delta.dot(self.synapse_2.T)
+            layer2_delta = layer2_error * self.activation_prime(layer2) * self.learning_rate
+            self.bias_ev2 += np.sum(layer2_delta)
+
+            layer1_error = layer2_delta.dot(self.synapse_1.T)
+            layer1_delta = layer1_error * self.activation_prime(layer1) * self.learning_rate
+            self.bias_ev1 += np.sum(layer1_delta)
 
             self.synapse_2 += layer2.T.dot(layer3_delta)
             self.synapse_1 += layer1.T.dot(layer2_delta)

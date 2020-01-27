@@ -153,3 +153,12 @@ class LogicGate():
 
         return(predicted_output)
     
+
+    def evolved_training_results(self):
+        t_inputs, t_outputs = self.choose_gate()
+
+        for elem in t_inputs:
+            predicted_output = self.madame_irma.evolved_predict(elem)
+            print(elem, ' ---> ', predicted_output)
+
+        return(predicted_output)
