@@ -44,23 +44,25 @@ def gate_outputs(activation):
     mode = args['mode']
 
     learning_rate = .1
-    evolved = False
+    evolved = True
 
     gate_ = LogicGate(gate, activation)
 
     if mode == 'perceptron':
-        epoch = 1000000
+        epoch = 100000
         gate_.train(epoch, learning_rate, mode)
     elif mode == 'network':
-        epoch = 1000000
+        epoch = 100000
         if evolved:
             accuracy = 95
             gate_.evolved_train(accuracy, learning_rate)
+            pr_outputs = gate_.evolved_training_results()
         else:
             gate_.train(epoch, learning_rate, mode)
-
-    pr_outputs = gate_.training_results()
+            pr_outputs = gate_.training_results()
+    
 
 
 if __name__ == "__main__":
     gate_outputs('sigmoid')
+    gate_outputs('tanh')
