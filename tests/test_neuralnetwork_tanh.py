@@ -62,8 +62,8 @@ def test_outputs_nor():
 
 def test_outputs_xor():
     gate = 'xor'
-    learning_rate = 0.1
-    error = .34
+    learning_rate = 0.2
+    error = .2
     epochs = 100000
     mode = 'network'
 

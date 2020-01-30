@@ -64,10 +64,10 @@ def test_outputs_nor():
 
 def test_outputs_xor():
     gate = 'xor'
-    learning_rate = 0.1
+    learning_rate = 0.2
     
     # error = 10/float(epochs)
-    error = .34
+    error = .2
     accuracy = 95
 
     expected_inputs = np.array([[0, 0],

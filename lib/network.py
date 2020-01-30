@@ -58,7 +58,7 @@ class Perceptron():
     def train(self, t_inputs, t_outputs, epochs):
         start_time = time.time()
         if self.activation == self.tanh:
-            self.bias = 0.5
+            self.bias = 1
         elif self.activation == self.sigmoid:
             self.bias = 1
 
@@ -150,9 +150,9 @@ class NeuralNetwork():
         start_time = time.time()
 
         if self.activation == self.sigmoid:
-            self.bias_1 = self.bias_2 = self.bias_3 = 0.5
+            self.bias_1 = self.bias_2 = self.bias_3 = 1
         elif self.activation == self.tanh:
-            self.bias_1 = self.bias_2 = self.bias_3 = 0.6
+            self.bias_1 = self.bias_2 = self.bias_3 = 1
 
         for iterations in range(epochs):
 
@@ -190,9 +190,9 @@ class NeuralNetwork():
         start_time = time.time()
         
         if self.activation == self.sigmoid:
-            self.bias_ev1 = self.bias_ev2 = self.bias_ev3 = 0.5
-        elif self.activation == self.tanh:
             self.bias_ev1 = self.bias_ev2 = self.bias_ev3 = 1
+        elif self.activation == self.tanh:
+            self.bias_ev1 = self.bias_ev2 = self.bias_ev3 = -1
 
         delta = 0.0
         stagnation_iter = 0
