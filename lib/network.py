@@ -13,7 +13,7 @@ class Perceptron():
         self.training_time = 0
 
         if learning_rate == None:
-            self.learning_rate = 1
+            self.learning_rate = 0.1
         else:
             self.learning_rate = learning_rate
 
@@ -167,21 +167,21 @@ class NeuralNetwork():
             layer3 = self.activation(np.dot(layer2, self.synapse_2) + self.bias_3)
 
             # Back Propagation
-            layer3_error = t_outputs - layer3
+            layer3_error = t_outputs - layer3 / t_outputs.shape[0]
             layer3_delta = layer3_error * self.activation_prime(layer3) * self.learning_rate
-            self.bias_3 += np.sum(layer3_delta)
+            self.bias_3 -= np.sum(layer3_delta) 
             
             layer2_error = layer3_delta.dot(self.synapse_2.T)
             layer2_delta = layer2_error * self.activation_prime(layer2) * self.learning_rate
-            self.bias_2 += np.sum(layer2_delta)
+            self.bias_2 -= np.sum(layer2_delta) 
 
             layer1_error = layer2_delta.dot(self.synapse_1.T)
             layer1_delta = layer1_error * self.activation_prime(layer1) * self.learning_rate
-            self.bias_1 += np.sum(layer1_delta)
+            self.bias_1 -= np.sum(layer1_delta)
 
-            self.synapse_2 += layer2.T.dot(layer3_delta)
-            self.synapse_1 += layer1.T.dot(layer2_delta)
-            self.synapse_0 += layer0.T.dot(layer1_delta)
+            self.synapse_2 -= layer2.T.dot(layer3_delta)
+            self.synapse_1 -= layer1.T.dot(layer2_delta)
+            self.synapse_0 -= layer0.T.dot(layer1_delta)
         
         self.training_time = time.time() - start_time
 
