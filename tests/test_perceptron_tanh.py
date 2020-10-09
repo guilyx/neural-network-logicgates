@@ -10,7 +10,7 @@ from lib.gate_predictions import LogicGate
 
 def test_outputs_or():
     gate = 'or'
-    learning_rate = 0.1
+    learning_rate = 0.01
     error = .25
     epochs = 100000
     mode = 'perceptron'
@@ -36,7 +36,7 @@ def test_outputs_or():
 
 def test_outputs_nor():
     gate = 'nor'
-    learning_rate = 0.1
+    learning_rate = 0.01
     error = .25
     epochs = 100000
     mode = 'perceptron'
@@ -62,8 +62,8 @@ def test_outputs_nor():
 
 def test_outputs_xor():
     gate = 'xor'
-    learning_rate = 0.1
-    error = .25
+    learning_rate = 0.01
+    error = .2
     epochs = 100000
     mode = 'perceptron'
 
@@ -88,7 +88,7 @@ def test_outputs_xor():
 
 def test_outputs_and():
     gate = 'and'
-    learning_rate = 0.1
+    learning_rate = 0.01
     error = .25
     epochs = 100000
     mode = 'perceptron'
@@ -114,7 +114,7 @@ def test_outputs_and():
 
 def test_outputs_nand():
     gate = 'nand'
-    learning_rate = 0.1
+    learning_rate = 0.01
     error = .25
     epochs = 100000
     mode = 'perceptron'
